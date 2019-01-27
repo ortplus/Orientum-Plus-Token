@@ -1,4 +1,4 @@
-pragma solidity 0.4.25;
+pragma solidity ^0.5.1;
 
 interface IERC20 {
   function totalSupply() external view returns (uint256);
@@ -34,17 +34,17 @@ contract ERC20Detailed is IERC20 {
   string private _symbol;
   uint8 private _decimals;
 
-  constructor(string name, string symbol, uint8 decimals) public {
+  constructor(string memory name, string memory symbol, uint8 decimals) public {
     _name = name;
     _symbol = symbol;
     _decimals = decimals;
   }
 
-  function name() public view returns(string) {
+  function name() public view returns(string memory) {
     return _name;
   }
 
-  function symbol() public view returns(string) {
+  function symbol() public view returns(string memory) {
     return _symbol;
   }
 
@@ -189,14 +189,14 @@ contract ERC20 is IERC20 {
   }
 
   function _mint(address account, uint256 amount) internal {
-    require(account != 0);
+    require(account != address(0));
     _totalSupply = _totalSupply.add(amount);
     _balances[account] = _balances[account].add(amount);
     emit Transfer(address(0), account, amount);
   }
 
   function _burn(address account, uint256 amount) internal {
-    require(account != 0);
+    require(account != address(0));
     require(amount <= _balances[account]);
 
     _totalSupply = _totalSupply.sub(amount);
@@ -213,10 +213,31 @@ contract ERC20 is IERC20 {
   }
 }
 
-contract OrtPlus is ERC20, ERC20Detailed {
+contract Details {
+	mapping (address => string) public nameOf;
+	mapping (address => string) public telOf;
+	mapping (address => string) public emailOf;
+	mapping (address => string) public urlOf;
+	mapping (address => string) public infoOf;
+
+	function setEverything (string memory _name, string memory _tel, string memory _mail, string memory _url, string memory _info) public {
+		nameOf[msg.sender] = _name;
+		telOf[msg.sender] = _tel;
+		emailOf[msg.sender] = _mail;
+		urlOf[msg.sender] = _url;
+		infoOf[msg.sender] = _info;
+	}
+
+	function seeAllData (address _address) public view returns (string memory, string memory, string memory, string memory, string memory)  {
+		return (nameOf[_address], telOf[_address], emailOf[_address], urlOf[_address], infoOf[_address]);
+	}
+}
+
+contract OrtPlus is ERC20, ERC20Detailed, Details {
     constructor()
         ERC20Detailed("Orientum Plus", "ORT+", 18)
         ERC20()
+        Details()
 
         public
     {
