@@ -1,6 +1,8 @@
 # Orientum-Plus-Token
 
-The ORT Plus Token contract is used for Orientum Plus an ERC-20 token deployed to the Ethereum blockchain on 1st December 2018.
+The ORT Plus Token contract is used for Orientum Plus an ERC-20 token deployed to the Ethereum blockchain initally on 1st December 2018.
+
+After consultation it was decided to extend the standard ERC20 token protocol to incorporate optional wallet identification material. A second contract was deployed with a proprietory R-seb protcol on 27th January 2019.
 
 The token details are as follows :
 
@@ -12,9 +14,9 @@ Token Name        | Orientum Plus
 Token Symbol      | ORT+
 Total Supply      | 40,000,000,000
 Decimal places    | 18
-Ethereum Address  | 0xb984ad45393647d8109287933aa09a3b733d1cdd
+Ethereum Address  | 0xe02a471b2778b2d3a220e1ff82a0f8184fb73504
 
-The token contracts are based on standard contracts from https://openzeppelin.org
+The token contract is based on standard contracts from https://openzeppelin.org
 
 To give a little background:
 
@@ -53,3 +55,33 @@ If this function is called again it overwrites the current allowance with _value
 #### allowance(address _owner, address _spender) - public view returns (uint256 remaining)
 
 Returns the amount which _spender is still allowed to withdraw from _owner
+
+Additional R-seb functionality is provided by the following functions
+
+#### nameOf (address _owner)
+
+Get Rseb info name of account with address _owner
+
+#### telOf (address _owner)
+
+Get Rseb telephone data of account with address _owner
+
+#### emailOf (address _owner)
+
+Get Rseb email data of account with address _owner
+
+#### urlOf (address _owner)
+
+Get Rseb url data of account with address _owner
+
+#### infoOf (address _owner)
+
+Get Rseb info data of account with address _owner
+
+#### setRsebData (string memory _name, string memory _tel, string memory _mail, string memory _url, string memory _info)
+
+Set all Rseb data of account
+
+#### seeRsebData (address _owner)
+
+Get all Rseb data of account with address _owner
